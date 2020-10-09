@@ -1,5 +1,5 @@
 # GOT-Character-App
-A Java based Android Application to fetch GOT character names from [JSON API](https://raw.githubusercontent.com/jeffreylancaster/game-of-thrones/master/data/characters.json)
+A Java based Android Application to fetch GOT character names from [GOT JSON API](https://raw.githubusercontent.com/jeffreylancaster/game-of-thrones/master/data/characters.json)
 
 ## Pre-Requisites
  * Basic Knowledge and Implementation of Git and Github.
