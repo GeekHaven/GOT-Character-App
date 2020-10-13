@@ -10,12 +10,12 @@ public class character {
     private String house;
     private List<String> people_killed;
     private List<String> killed_by;
-    private String parents;
-    private String siblings;
-    private String spouse;
+    private List<String> parents;
+    private List<String> siblings;
+    private List<String> spouse;
 
 
-    public character(String name, String image_url, String house, List<String> people_killed, List<String> killed_by, String parents, String siblings, String spouse) {
+    public character(String name, String image_url, String house, List<String> people_killed, List<String> killed_by, List<String> parents, List<String> siblings, List<String> spouse) {
         this.name = name;
         this.image_url = image_url;
         this.house = house;
@@ -46,15 +46,15 @@ public class character {
         return killed_by;
     }
 
-    public String getParents() {
+    public List<String> getParents() {
         return parents;
     }
 
-    public String getSiblings() {
+    public List<String> getSiblings() {
         return siblings;
     }
 
-    public String getSpouse() {
+    public List<String> getSpouse() {
         return spouse;
     }
 }
