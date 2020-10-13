@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         generalList.add("Default2");
         generalList.add("Default3");
         generalList.add("Default4");
+
+
         //Using recycler view
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this,generalList);
         recyclerView.setAdapter(recyclerViewAdapter);
