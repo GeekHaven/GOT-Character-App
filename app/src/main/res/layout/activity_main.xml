@@ -23,7 +23,7 @@
         android:layout_height="662dp"
         android:background="@color/cardview_light_background"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
