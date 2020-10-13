@@ -3,26 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="164dp"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginBottom="8dp"
-    >
+    android:layout_height="164dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000">
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:background="#232323">
 
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/character_image"
             android:layout_width="128dp"
             android:layout_height="128dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:src="@drawable/gotimage"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.444" />
 
         <TextView
             android:id="@+id/name"
@@ -30,8 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="characterName"
-            android:textSize="16sp"
             android:textColor="#fff"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.113"
             app:layout_constraintStart_toEndOf="@+id/character_image"
@@ -43,12 +45,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:text="characterhouse"
-            android:textSize="16sp"
             android:textColor="#fff"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.024"
             app:layout_constraintStart_toEndOf="@+id/character_image"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -56,9 +58,9 @@
             android:id="@+id/red_heart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#232323"
             android:src="@drawable/ic_baseline_favorite_24"
             android:tooltipText="favourite"
-            android:background="#fff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.085"
