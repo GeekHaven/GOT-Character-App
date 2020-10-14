@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import com.example.gotcharacterapp.MainActivity;
 import com.example.gotcharacterapp.R;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
     private List<String> displayList;
@@ -33,22 +36,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
-        holder.text.setText(displayList.get(position));
+
     }
 
     @Override
     public int getItemCount() {
-        return displayList.size();
+        return 9;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.
             OnClickListener{
-            public TextView text;
+            public CircleImageView circleImageView;
+            public TextView nameChar;
+            public TextView houseChar;
+            public ImageButton favButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            text = itemView.findViewById(R.id.name);
+            circleImageView = itemView.findViewById(R.id.CirImgCharacter);
+            nameChar = itemView.findViewById(R.id.nameCharacter);
+            houseChar = itemView.findViewById(R.id.nameHouse);
+            favButton = itemView.findViewById(R.id.favBtn);
         }
 
         @Override

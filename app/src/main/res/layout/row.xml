@@ -5,24 +5,86 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="85dp">
+    android:layout_marginTop="5dp"
+    android:layout_height="95dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingLeft="5dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_row"
+        android:padding="10dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="92dp"
-            android:layout_height="27dp"
-            android:layout_marginTop="16dp"
-            android:text="Text"
-            android:textSize="18sp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/CirImgCharacter"
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/goticon"
+            />
+
+            <LinearLayout
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#F44336"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="2dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/nameCharacter"
+                    android:text="Character Name"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#D5E816"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/nameHouse"
+                    android:textColor="#FF9800"
+                    android:layout_marginTop="5dp"
+                    android:textStyle="italic|bold"
+                    android:text="House"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:layout_height="match_parent">
+                <ImageButton
+                    android:id="@+id/favBtn"
+                    android:layout_marginRight="10dp"
+                    android:background="#000000"
+                    android:src="@drawable/ic_baseline_favorite_border_24"
+                    android:layout_gravity="center"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
