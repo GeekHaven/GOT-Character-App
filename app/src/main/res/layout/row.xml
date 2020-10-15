@@ -56,7 +56,7 @@
             android:layout_marginLeft="16dp"
             android:background="@android:color/background_dark"
             android:src="@drawable/gotimage"
-            app:civ_border_color="#F5FD00"
+            app:civ_border_color="#EDC3C5C2"
             app:civ_border_width="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
