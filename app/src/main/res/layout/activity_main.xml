@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#A043F1"
+    android:background="#656768"
     tools:context=".MainActivity">
-
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"
@@ -22,7 +21,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#A043F1"
+        android:background="#656768"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

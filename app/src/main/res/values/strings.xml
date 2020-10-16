@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">GOT Character App</string>
+    <string name="app_name">GOT CHARACTER APP</string>
+    <string name="search">Search</string>
 </resources>
