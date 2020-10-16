@@ -3,7 +3,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="55dp"
-    android:background="#2196F3"
+    android:background="#212122"
     android:elevation="4dp"
     android:theme="@style/AppTheme">
 
