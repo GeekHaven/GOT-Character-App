@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gotcharacterapp.Character;
 import com.example.gotcharacterapp.MainActivity;
 import com.example.gotcharacterapp.R;
+
 
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
-    private List<String> displayList;
+    private List<Character> displayList;
     private Context context;
 
-    public RecyclerViewAdapter(MainActivity context, List<String> displayList) {
+    public RecyclerViewAdapter(MainActivity context, List<Character> displayList) {
         this.context = context;
         this.displayList = displayList;
 
@@ -33,7 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
-        holder.text.setText(displayList.get(position));
+
     }
 
     @Override
