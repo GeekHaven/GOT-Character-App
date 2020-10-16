@@ -2,13 +2,25 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@android:color/background_dark</item>
+        <item name="colorPrimaryDark">@android:color/background_dark</item>
+        <item name="colorAccent">@color/cardview_light_background</item>
     </style>
 
     <style name="splashStyle" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
 
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
+        <!-- Text Size -->
+        <item name="android:textSize">20dp</item>
+        <!-- Query Text Color -->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!-- Hint Color -->
+        <item name="android:textColorHint">@android:color/darker_gray</item>
+        <!-- Icon Color -->
+        <item name="android:tint">@android:color/white</item>
+        <item name="android:icon">@drawable/ic_baseline_search_24</item>
+
+    </style>
 </resources>

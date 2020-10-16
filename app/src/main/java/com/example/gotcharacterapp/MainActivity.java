@@ -1,5 +1,6 @@
 package com.example.gotcharacterapp;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
@@ -7,11 +8,13 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -20,15 +23,17 @@ import java.util.List;
 
 import adapter.RecyclerViewAdapter;
 
+import static android.graphics.Color.DKGRAY;
+
 public class MainActivity extends AppCompatActivity {
     List<String> generalList = new ArrayList<>();
-
+    Toolbar mTopToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar mTopToolbar;
+
         mTopToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mTopToolbar);
 
@@ -52,10 +57,11 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search,menu);
         MenuItem searchViewItem = menu.findItem(R.id.app_bar_search);
-
         SearchView searchView = (SearchView)searchViewItem.getActionView();
-
+        SearchView searchView1 = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
+        searchView1.setBackgroundColor(Color.rgb(31,31,31));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -69,5 +75,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    ;
 }
