@@ -89,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.GET, API_REQUEST, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
+                
+                characterList.clear();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray allCharacters = jsonObject.getJSONArray("characters");
