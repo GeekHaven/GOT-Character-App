@@ -2,7 +2,7 @@ package com.example.gotcharacterapp;
 
 import java.util.List;
 
-public class Character {
+public class CharacterItem {
 
 
     private String name;
@@ -15,7 +15,7 @@ public class Character {
     private List<String> spouse;
 
 
-    public Character(String name, String image_url, String house, List<String> people_killed, List<String> killed_by, List<String> parents, List<String> siblings, List<String> spouse) {
+    public CharacterItem(String name, String image_url, String house, List<String> people_killed, List<String> killed_by, List<String> parents, List<String> siblings, List<String> spouse) {
         this.name = name;
         this.image_url = image_url;
         this.house = house;
