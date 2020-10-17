@@ -34,14 +34,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapter.RecyclerViewAdapter;
+
+import adapter.*;
+
 
 import static android.graphics.Color.DKGRAY;
 
 public class MainActivity extends AppCompatActivity {
     List<String> generalList = new ArrayList<>();
     Toolbar mTopToolbar;
-    private List<Character> characterList = new ArrayList<>();
+    private List<CharacterItem> characterList = new ArrayList<>();
     private static final String API_REQUEST = "https://raw.githubusercontent.com/jeffreylancaster/game-of-thrones/master/data/characters.json";
     private RecyclerView recyclerView;
     @Override
@@ -151,8 +153,7 @@ public class MainActivity extends AppCompatActivity {
                                 spouse.add(jsonSpouse.getString(j));
                             }
                         }
-
-                        Character c = new Character(name,image_url,house,people_killed,killed_by,parents,siblings,spouse);
+                        CharacterItem c = new CharacterItem(name,image_url,house,people_killed,killed_by,parents,siblings,spouse);
                         characterList.add(c);
                     }
 
