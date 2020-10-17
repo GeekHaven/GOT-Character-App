@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
         mTopToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mTopToolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_favorite_24);// set drawable icon
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -73,16 +76,20 @@ public class MainActivity extends AppCompatActivity {
         MenuItem searchViewItem = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView)searchViewItem.getActionView();
         SearchView searchView1 = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
-        searchView1.setBackgroundColor(Color.rgb(31,31,31));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
+                searchView1.setBackgroundColor(Color.TRANSPARENT);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if(newText.isEmpty())
+                    searchView1.setBackgroundColor(Color.TRANSPARENT);
+                else
+                searchView1.setBackgroundColor(Color.rgb(31,31,31));
                 return false;
             }
         });
