@@ -14,8 +14,9 @@ public class Character {
     private List<String> siblings;
     private List<String> spouse;
 
+    private List<String> children;
 
-    public Character(String name, String image_url, String house, List<String> people_killed, List<String> killed_by, List<String> parents, List<String> siblings, List<String> spouse) {
+    public Character(String name, String image_url, String house, List<String> people_killed, List<String> killed_by, List<String> parents, List<String> siblings, List<String> spouse ,List<String> children) {
         this.name = name;
         this.image_url = image_url;
         this.house = house;
@@ -24,6 +25,7 @@ public class Character {
         this.parents = parents;
         this.siblings = siblings;
         this.spouse = spouse;
+        this.children=children;
     }
 
     public String getName() {
@@ -57,4 +59,6 @@ public class Character {
     public List<String> getSpouse() {
         return spouse;
     }
+
+    public List<String> getChildren() { return children; }
 }
