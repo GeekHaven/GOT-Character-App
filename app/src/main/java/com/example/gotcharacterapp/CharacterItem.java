@@ -6,18 +6,17 @@ public class CharacterItem {
 
 
     private String name;
-    private  String image_url;
+    private String image_url;
     private String house;
     private List<String> people_killed;
     private List<String> killed_by;
     private List<String> parents;
     private List<String> siblings;
     private List<String> spouse;
-    private List<String> children;
-    private boolean favourite=false;              // favourite attribute
+    private boolean favourite = false;              // favourite attribute
 
 
-    public CharacterItem(String name, String image_url, String house, List<String> people_killed, List<String> killed_by, List<String> parents, List<String> siblings, List<String> spouse, List<String> children) {
+    public CharacterItem(String name, String image_url, String house, List<String> people_killed, List<String> killed_by, List<String> parents, List<String> siblings, List<String> spouse) {
         this.name = name;
         this.image_url = image_url;
         this.house = house;
@@ -26,7 +25,6 @@ public class CharacterItem {
         this.parents = parents;
         this.siblings = siblings;
         this.spouse = spouse;
-        this.children=children;         
     }
 
     public String getName() {
@@ -61,11 +59,11 @@ public class CharacterItem {
         return spouse;
     }
 
-    public List<String> getChildren() {
-        return children;
+    public boolean getFavourite() {
+        return favourite;
     }
 
-    public boolean getFavourite() { return favourite; }
-
-    public void setFavourite(boolean favourite){ this.favourite = favourite; }
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
+    }
 }
