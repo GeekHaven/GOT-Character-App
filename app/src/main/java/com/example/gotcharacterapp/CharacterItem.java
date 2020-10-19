@@ -14,6 +14,7 @@ public class CharacterItem {
     private List<String> siblings;
     private List<String> spouse;
     private List<String> children;
+    private boolean favourite=false;              // favourite attribute
 
 
     public CharacterItem(String name, String image_url, String house, List<String> people_killed, List<String> killed_by, List<String> parents, List<String> siblings, List<String> spouse, List<String> children) {
@@ -25,7 +26,7 @@ public class CharacterItem {
         this.parents = parents;
         this.siblings = siblings;
         this.spouse = spouse;
-        this.children=children;
+        this.children=children;         
     }
 
     public String getName() {
@@ -63,4 +64,8 @@ public class CharacterItem {
     public List<String> getChildren() {
         return children;
     }
+
+    public boolean getFavourite() { return favourite; }
+
+    public void setFavourite(boolean favourite){ this.favourite = favourite; }
 }
