@@ -1,34 +1,47 @@
 package adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.android.volley.toolbox.StringRequest;
 import com.example.gotcharacterapp.CharacterItem;
 import com.example.gotcharacterapp.MainActivity;
 import com.example.gotcharacterapp.R;
 import com.squareup.picasso.Picasso;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
-    private List<CharacterItem> displayList;
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
+    private List<CharacterItem> displayList = new ArrayList<>();
     private Context context;
-
+    private List<CharacterItem> filteredList = new ArrayList<>();
+    private String searchQuery = "";
     public RecyclerViewAdapter(MainActivity context, List<CharacterItem> displayList) {
         this.context = context;
         this.displayList = displayList;
-
+        this.filteredList = displayList;
     }
 
     @NonNull
@@ -41,23 +54,82 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
 
-        holder.textName.setText(displayList.get(position).getName());
-        if(displayList.get(position).getHouse().equals("")){
-            holder.textHouse.setText("--");
+        if(searchQuery != null && searchQuery != ""){
+            String name = filteredList.get(position).getName();
+            int start = name.toLowerCase().indexOf(searchQuery.toLowerCase().trim());
+            int end = start + searchQuery.length();
+            if(start < 0 || end > name.length()){
+                holder.textName.setText(filteredList.get(position).getName());
+            }else {
+                Spannable highlightedName = new SpannableString(name);
+                ColorStateList highlightColor = new ColorStateList(new int[][]{new int[]{}},new int[]{Color.YELLOW});
+                highlightedName.setSpan(new TextAppearanceSpan(null, Typeface.BOLD_ITALIC,-1,highlightColor,null),start,end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                holder.textName.setText(highlightedName);
+            }
+
         }else{
-            holder.textHouse.setText("House "+displayList.get(position).getHouse());
+            holder.textName.setText(filteredList.get(position).getName());
         }
 
-        if(!displayList.get(position).getImage_url().equals("")){
-            Picasso.with(context).load(displayList.get(position).getImage_url()).placeholder(R.drawable.gotimage).into(holder.circleImageView);
+
+        if(filteredList.get(position).getHouse().equals("")){
+            holder.textHouse.setText("--");
+        }else{
+            holder.textHouse.setText("House "+filteredList.get(position).getHouse());
+        }
+
+        if(!filteredList.get(position).getImage_url().equals("")){
+            Picasso.with(context).load(filteredList.get(position).getImage_url()).placeholder(R.drawable.gotimage).into(holder.circleImageView);
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return displayList.size();
+        return filteredList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<CharacterItem> filtering = new ArrayList<>();
+            if(charSequence != null && charSequence != ""){
+
+                searchQuery = charSequence.toString();
+
+                for(CharacterItem item : displayList){
+                    if(item.getName().toLowerCase().contains(charSequence.toString().toLowerCase())){
+                        filtering.add(item);
+                    }
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.count = filtering.size();
+            filterResults.values = filtering;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+
+            if(filterResults != null && filterResults.count > 0){
+                try{
+                    filteredList = (List<CharacterItem>) filterResults.values;
+                    notifyDataSetChanged();
+                }catch (Exception e){
+                    Log.i("E>>>>>>>>>>>>>>", Objects.requireNonNull(e.getMessage()));
+                }
+
+            }
+
+        }
+    };
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.
             OnClickListener{

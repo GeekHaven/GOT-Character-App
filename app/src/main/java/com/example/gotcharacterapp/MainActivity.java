@@ -11,6 +11,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import android.text.Spannable;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +42,7 @@ import adapter.*;
 
 
 import static android.graphics.Color.DKGRAY;
+import static android.graphics.Color.YELLOW;
 
 public class MainActivity extends AppCompatActivity {
     List<String> generalList = new ArrayList<>();
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private List<CharacterItem> characterList = new ArrayList<>();
     private static final String API_REQUEST = "https://raw.githubusercontent.com/jeffreylancaster/game-of-thrones/master/data/characters.json";
     private RecyclerView recyclerView;
+    private RecyclerViewAdapter recyclerViewAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState);
@@ -78,8 +83,9 @@ public class MainActivity extends AppCompatActivity {
         MenuItem searchViewItem = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView)searchViewItem.getActionView();
         SearchView searchView1 = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
+        
+        searchView1.setBackgroundColor(Color.TRANSPARENT);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchView1.setBackgroundColor(Color.TRANSPARENT);
@@ -88,15 +94,20 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(newText.isEmpty())
+                if(newText.isEmpty()) {
                     searchView1.setBackgroundColor(Color.TRANSPARENT);
-                else
-                searchView1.setBackgroundColor(Color.rgb(31,31,31));
+                }
+                else{
+                    searchView1.setBackgroundColor(Color.rgb(31,31,31));
+                }
+                recyclerViewAdapter.getFilter().filter(newText);
+
                 return false;
             }
         });
         return super.onCreateOptionsMenu(menu);
     }
+
 
     private void fetchData(){
 
@@ -119,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         List<String> parents = new ArrayList<>();
                         List<String> siblings = new ArrayList<>();
                         List<String> spouse = new ArrayList<>();
+                        List<String> children = new ArrayList<>();
 
                         if(character.has("characterName"))  name += character.getString("characterName");
                         if(character.has("characterImageThumb"))  image_url += character.getString("characterImageThumb");
@@ -153,11 +165,17 @@ public class MainActivity extends AppCompatActivity {
                                 spouse.add(jsonSpouse.getString(j));
                             }
                         }
-                        CharacterItem c = new CharacterItem(name,image_url,house,people_killed,killed_by,parents,siblings,spouse);
+                        if(character.has("parentOf")){
+                            JSONArray jsonChildren = character.getJSONArray("parentOf");
+                            for(int j = 0 ; j < jsonChildren.length() ; j++) {
+                                children.add(jsonChildren.getString(j));
+                            }
+                        }
+                        CharacterItem c = new CharacterItem(name,image_url,house,people_killed,killed_by,parents,siblings,spouse,children);
                         characterList.add(c);
                     }
 
-                    RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this,characterList);
+                    recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this,characterList);
                     recyclerView.setAdapter(recyclerViewAdapter);
                     recyclerViewAdapter.notifyDataSetChanged();
 
