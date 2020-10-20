@@ -111,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void fetchData(){
 
+        final LoadingDialog loadingDialog = new LoadingDialog(MainActivity.this);
+        loadingDialog.startLoadingDialog();
+
         StringRequest request = new StringRequest(Request.Method.GET, API_REQUEST, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -182,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                loadingDialog.dismissDialog();
             }
         }, new Response.ErrorListener() {
             @Override
