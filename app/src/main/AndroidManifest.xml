@@ -24,6 +24,9 @@
         <activity android:name=".MainActivity">
 
         </activity>
+        <activity android:name=".DisplayCharacterItem">
+
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

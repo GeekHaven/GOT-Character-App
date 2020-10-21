@@ -1,8 +1,9 @@
 package com.example.gotcharacterapp;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CharacterItem {
+public class CharacterItem implements Serializable {
 
 
     private String name;
