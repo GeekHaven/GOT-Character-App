@@ -1,9 +1,11 @@
 package adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Parcelable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -22,21 +24,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.toolbox.StringRequest;
 import com.example.gotcharacterapp.CharacterItem;
+import com.example.gotcharacterapp.DisplayCharacterItem;
 import com.example.gotcharacterapp.MainActivity;
 import com.example.gotcharacterapp.R;
 import com.squareup.picasso.Picasso;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
     private List<CharacterItem> displayList = new ArrayList<>();
     private Context context;
-    private List<CharacterItem> filteredList = new ArrayList<>();
+    public static List<CharacterItem> filteredList = new ArrayList<>();
     private String searchQuery = "";
     public RecyclerViewAdapter(MainActivity context, List<CharacterItem> displayList) {
         this.context = context;
@@ -149,7 +155,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Override
         public void onClick(View view) {
-
+            int pos = getAdapterPosition();
+            if(pos != RecyclerView.NO_POSITION) {
+                CharacterItem ob = filteredList.get(pos);
+                Intent i = new Intent(view.getContext(), DisplayCharacterItem.class);
+                i.putExtra("Character Items", (Serializable) ob);
+                view.getContext().startActivity(i);
+            }
         }
     }
 }
