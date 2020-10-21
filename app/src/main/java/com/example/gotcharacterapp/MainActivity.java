@@ -1,6 +1,7 @@
 package com.example.gotcharacterapp;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.opengl.Visibility;
 import android.os.Bundle;
 
 import android.text.Spannable;
@@ -18,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -29,6 +32,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String API_REQUEST = "https://raw.githubusercontent.com/jeffreylancaster/game-of-thrones/master/data/characters.json";
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
+    private FloatingActionButton floatingActionButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState);
@@ -63,16 +68,43 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
 
         recyclerView = findViewById(R.id.recyclerView);
+
         recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        floatingActionButton = findViewById(R.id.floatingActionButton);
+        floatingActionButton.setVisibility(View.INVISIBLE);
 
         characterList.clear();
         fetchData();
 
         //Using recycler view
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
 
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy > 0 && floatingActionButton.getVisibility() == View.INVISIBLE){
+                    floatingActionButton.setVisibility(View.VISIBLE);
+                }else if(linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0){
+                    floatingActionButton.setVisibility(View.INVISIBLE);
+                    //Toast.makeText(MainActivity.this, "At Top!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recyclerView.smoothScrollToPosition(0);
+                floatingActionButton.setVisibility(View.INVISIBLE);
+            }
+        });
 
     }
 
