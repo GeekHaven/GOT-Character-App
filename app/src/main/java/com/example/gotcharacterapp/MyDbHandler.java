@@ -30,84 +30,88 @@ public class MyDbHandler extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(GotQuery);
     }
 
-    public void addCharacterItem(CharacterItem characterItem) {
+    public void addCharacterItems(List<CharacterItem> characterItemList) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(Params.KEY_CHARACTER_NAME, characterItem.getName());
-        values.put(Params.KEY_IMAGE_URL, characterItem.getImage_url());
-        values.put(Params.KEY_HOUSE, characterItem.getHouse());
-        if (characterItem.getPeople_killed() != null) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("people_killed", new JSONArray(characterItem.getPeople_killed()));
-                String peopleKilled = jsonObject.toString();
-                values.put(Params.KEY_PEOPLE_KILLED, peopleKilled);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
 
-        if (characterItem.getKilled_by() != null) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("killed_by", new JSONArray(characterItem.getKilled_by()));
-                String killedBy = jsonObject.toString();
-                values.put(Params.KEY_KILLED_BY, killedBy);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+        for(CharacterItem characterItem:characterItemList){
+            ContentValues values = new ContentValues();
+            values.put(Params.KEY_CHARACTER_NAME, characterItem.getName());
+            values.put(Params.KEY_IMAGE_URL, characterItem.getImage_url());
+            values.put(Params.KEY_HOUSE, characterItem.getHouse());
 
-        if (characterItem.getParents() != null) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("parents", new JSONArray(characterItem.getParents()));
-                String parents = jsonObject.toString();
-                values.put(Params.KEY_PARENTS, parents);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if (characterItem.getPeople_killed() != null) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("people_killed", new JSONArray(characterItem.getPeople_killed()));
+                    String peopleKilled = jsonObject.toString();
+                    values.put(Params.KEY_PEOPLE_KILLED, peopleKilled);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        if (characterItem.getSiblings() != null) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("siblings", new JSONArray(characterItem.getSiblings()));
-                String siblings = jsonObject.toString();
-                values.put(Params.KEY_SIBLINGS, siblings);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if (characterItem.getKilled_by() != null) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("killed_by", new JSONArray(characterItem.getKilled_by()));
+                    String killedBy = jsonObject.toString();
+                    values.put(Params.KEY_KILLED_BY, killedBy);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        if (characterItem.getSpouse() != null) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("spouse", new JSONArray(characterItem.getSpouse()));
-                String spouse = jsonObject.toString();
-                values.put(Params.KEY_SPOUSE, spouse);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if (characterItem.getParents() != null) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("parents", new JSONArray(characterItem.getParents()));
+                    String parents = jsonObject.toString();
+                    values.put(Params.KEY_PARENTS, parents);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        if (characterItem.getChildren() != null) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("children", new JSONArray(characterItem.getChildren()));
-                String children = jsonObject.toString();
-                values.put(Params.KEY_CHILDREN, children);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if (characterItem.getSiblings() != null) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("siblings", new JSONArray(characterItem.getSiblings()));
+                    String siblings = jsonObject.toString();
+                    values.put(Params.KEY_SIBLINGS, siblings);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        if (characterItem.getFavourite()) {
-            values.put(Params.KEY_FAVOURITE, "1");
-        } else {
-            values.put(Params.KEY_FAVOURITE, "0");
+            if (characterItem.getSpouse() != null) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("spouse", new JSONArray(characterItem.getSpouse()));
+                    String spouse = jsonObject.toString();
+                    values.put(Params.KEY_SPOUSE, spouse);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (characterItem.getChildren() != null) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("children", new JSONArray(characterItem.getChildren()));
+                    String children = jsonObject.toString();
+                    values.put(Params.KEY_CHILDREN, children);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (characterItem.getFavourite()) {
+                values.put(Params.KEY_FAVOURITE, "1");
+            } else {
+                values.put(Params.KEY_FAVOURITE, "0");
+            }
+            db.insert(Params.TABLE_NAME, null, values);
         }
-        db.insert(Params.TABLE_NAME, null, values);
         db.close();
     }
 

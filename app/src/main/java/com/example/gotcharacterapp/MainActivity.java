@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.opengl.Visibility;
 import android.os.Bundle;
 
+import android.os.DeadObjectException;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private FloatingActionButton floatingActionButton;
+    private  MyDbHandler myDbHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState);
@@ -77,7 +79,18 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setVisibility(View.INVISIBLE);
 
         characterList.clear();
-        fetchData();
+
+        myDbHandler = new MyDbHandler(getApplicationContext());
+
+        if(myDbHandler.getCount() == 0){
+            fetchData();
+        }
+        else{
+            Log.d("MainActivity.java","fetch form sql database");
+            characterList = myDbHandler.getCharacterItemList();
+            setRecycleView();
+        }
+
 
         //Using recycler view
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -150,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
 
+                Log.d("MainActivity.java","Fetch from internet");
                 
                 characterList.clear();
                 try {
@@ -209,10 +223,8 @@ public class MainActivity extends AppCompatActivity {
                         CharacterItem c = new CharacterItem(name,image_url,house,people_killed,killed_by,parents,siblings,spouse,children);
                         characterList.add(c);
                     }
-
-                    recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this,characterList);
-                    recyclerView.setAdapter(recyclerViewAdapter);
-                    recyclerViewAdapter.notifyDataSetChanged();
+                    myDbHandler.addCharacterItems(characterList);
+                    setRecycleView();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -231,4 +243,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setRecycleView(){
+        recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this,characterList);
+        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onDestroy() {
+        myDbHandler.close();
+        super.onDestroy();
+    }
 }
