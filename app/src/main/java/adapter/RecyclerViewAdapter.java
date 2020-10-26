@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -16,9 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -26,6 +30,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.gotcharacterapp.CharacterItem;
 import com.example.gotcharacterapp.DisplayCharacterItem;
 import com.example.gotcharacterapp.MainActivity;
+import com.example.gotcharacterapp.MyDbHandler;
 import com.example.gotcharacterapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -37,6 +42,7 @@ import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static androidx.core.content.ContextCompat.getDrawable;
 import static androidx.core.content.ContextCompat.startActivity;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
@@ -76,6 +82,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }else{
             holder.textName.setText(filteredList.get(position).getName());
         }
+
+
+        if(filteredList.get(position).getFavourite()){
+            holder.heartIcon.setImageResource(R.drawable.ic_baseline_favorite_24);
+        }else{
+            holder.heartIcon.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+        }
+
+        holder.heartIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyDbHandler myDbHandler = new MyDbHandler(context);
+                if(filteredList.get(position).getFavourite()){
+                    holder.heartIcon.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                    filteredList.get(position).setFavourite(false);
+                    myDbHandler.updateFavouriteState(filteredList.get(position),position);
+                    Toast.makeText(context,"unFavourite",Toast.LENGTH_SHORT).show();
+                }else{
+                    holder.heartIcon.setImageResource(R.drawable.ic_baseline_favorite_24);
+                    filteredList.get(position).setFavourite(true);
+                    myDbHandler.updateFavouriteState(filteredList.get(position),position);
+                    Toast.makeText(context,"Favourite",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
         if(filteredList.get(position).getHouse().equals("")){
@@ -142,6 +173,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             private TextView textName;
             private TextView textHouse;
             private CircleImageView circleImageView;
+            private ImageView heartIcon;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -150,6 +182,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             textName = itemView.findViewById(R.id.name);
             textHouse = itemView.findViewById(R.id.house);
             circleImageView = itemView.findViewById(R.id.profile_image);
+            heartIcon =  itemView.findViewById(R.id.imageView2);
+
 
         }
 
