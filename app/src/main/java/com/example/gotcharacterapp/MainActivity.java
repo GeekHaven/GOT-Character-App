@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerViewAdapter recyclerViewAdapter;
     private FloatingActionButton floatingActionButton;
     private  MyDbHandler myDbHandler;
+    int click=0;
+    private List<CharacterItem> fav_list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState);
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         mTopToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mTopToolbar);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_favorite_24);// set drawable icon
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_favorite_white__24);// set drawable icon
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
 
@@ -90,6 +93,45 @@ public class MainActivity extends AppCompatActivity {
             characterList = myDbHandler.getCharacterItemList();
             setRecycleView();
         }
+
+        mTopToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                fav_list = new ArrayList<>();
+                for(CharacterItem character : characterList){
+                    if(character.getFavourite()){
+                        fav_list.add(character);
+                    }
+                }
+
+
+                click++;
+                if(click%2!=0){
+                    getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_favorite_24);// set drawable icon
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+                    recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this,fav_list);
+                }
+                else{
+                    getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_favorite_white__24);// set drawable icon
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+                    recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this,characterList);
+
+                }
+                recyclerView.setAdapter(recyclerViewAdapter);
+
+            }
+        });
+
+
+
+
+
+
+
+
 
 
         //Using recycler view
@@ -230,7 +272,11 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 loadingDialog.dismissDialog();
+
+
             }
+
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -240,6 +286,9 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);
+
+
+
 
     }
 
@@ -254,4 +303,6 @@ public class MainActivity extends AppCompatActivity {
         myDbHandler.close();
         super.onDestroy();
     }
+
+
 }

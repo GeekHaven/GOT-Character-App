@@ -19,7 +19,7 @@
         <!-- Hint Color -->
         <item name="android:textColorHint">@android:color/darker_gray</item>
         <!-- Icon Color -->
-        <item name="android:tint">@android:color/white</item>
+
         <item name="android:icon">@drawable/ic_baseline_search_24</item>
 
     </style>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 
@@ -14,6 +15,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import adapter.RecyclerViewAdapter;
 
 public class MyDbHandler extends SQLiteOpenHelper {
     public MyDbHandler(@Nullable Context context) {
@@ -226,7 +229,10 @@ public class MyDbHandler extends SQLiteOpenHelper {
             cursor.close();
         }
         db.close();
+
         return characterItemList;
+
+
     }
 
     public void updateFavouriteState(CharacterItem characterItem, int position) {
