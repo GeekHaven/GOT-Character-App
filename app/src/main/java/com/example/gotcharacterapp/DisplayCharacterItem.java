@@ -29,23 +29,23 @@ public class DisplayCharacterItem extends AppCompatActivity implements Serializa
         house.setText(character.getHouse());
 
         TextView people_killed = (TextView)findViewById(R.id.people_killed);
-        people_killed.setText((character.getPeople_killed().equals("")) ? "--" : character.getPeople_killed());
+        people_killed.setText((getString(character.getPeople_killed()).equals("")) ? "--" : getString(character.getPeople_killed()));
 
 
         TextView children = (TextView)findViewById(R.id.children);
-        children.setText((character.getChildren().equals("")) ? "--" : character.getChildren());
+        children.setText((getString(character.getChildren()).equals("")) ? "--" : getString(character.getChildren()));
 
         TextView killed_by = (TextView)findViewById(R.id.killed_by);
-        killed_by.setText((character.getKilled_by().equals("")) ? "--" : character.getKilled_by());
+        killed_by.setText((getString(character.getKilled_by()).equals("")) ? "--" : getString(character.getKilled_by()));
 
         TextView parents = (TextView)findViewById(R.id.parent);
-        parents.setText((character.getParents().equals("")) ? "--" : character.getParents());
+        parents.setText((getString(character.getParents()).equals(""))? "--" : getString(character.getParents()));
 
         TextView siblings = (TextView)findViewById(R.id.siblings);
-        siblings.setText((character.getSiblings().equals("")) ? "--" : character.getSiblings());
+        siblings.setText((getString(character.getSiblings()).equals("")) ? "--" : getString(character.getSiblings()));
 
         TextView spouse = (TextView)findViewById(R.id.spouse);
-        spouse.setText((character.getSpouse().equals("")) ? "--" : character.getSpouse());
+        spouse.setText((getString(character.getSpouse()).equals("")) ? "--" : getString(character.getSpouse()));
 
         if(character.getFavourite()){
             ImageView fav = (ImageView) findViewById(R.id.imageView2);
@@ -60,4 +60,13 @@ public class DisplayCharacterItem extends AppCompatActivity implements Serializa
         }
 
     }
+
+    private static String getString(List<String> list){
+        String str = "";
+        for(String s : list){
+            str += s + "\n";
+        }
+        return str.trim();
+    }
+
 }
