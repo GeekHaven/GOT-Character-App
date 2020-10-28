@@ -29,22 +29,23 @@ public class DisplayCharacterItem extends AppCompatActivity implements Serializa
         house.setText(character.getHouse());
 
         TextView people_killed = (TextView)findViewById(R.id.people_killed);
-        people_killed.setText(character.getPeople_killed());
+        people_killed.setText((character.getPeople_killed().equals("")) ? "--" : character.getPeople_killed());
+
 
         TextView children = (TextView)findViewById(R.id.children);
-        children.setText(character.getChildren());
+        children.setText((character.getChildren().equals("")) ? "--" : character.getChildren());
 
         TextView killed_by = (TextView)findViewById(R.id.killed_by);
-        killed_by.setText(character.getKilled_by());
+        killed_by.setText((character.getKilled_by().equals("")) ? "--" : character.getKilled_by());
 
         TextView parents = (TextView)findViewById(R.id.parent);
-        parents.setText(character.getParents());
+        parents.setText((character.getParents().equals("")) ? "--" : character.getParents());
 
         TextView siblings = (TextView)findViewById(R.id.siblings);
-        siblings.setText(character.getSiblings());
+        siblings.setText((character.getSiblings().equals("")) ? "--" : character.getSiblings());
 
         TextView spouse = (TextView)findViewById(R.id.spouse);
-        spouse.setText(character.getSpouse());
+        spouse.setText((character.getSpouse().equals("")) ? "--" : character.getSpouse());
 
         if(character.getFavourite()){
             ImageView fav = (ImageView) findViewById(R.id.imageView2);

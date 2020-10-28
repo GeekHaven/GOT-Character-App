@@ -45,49 +45,49 @@ public class CharacterItem implements Serializable {
     public String getPeople_killed() {
         String str = "";
         for(String s : people_killed){
-            str += s + "/n";
+            str += s + "\n";
         }
-        return str;
+        return str.trim();
     }
 
     public String getKilled_by() {
         String str = "";
         for(String s : killed_by){
-            str += s + "/n";
+            str += s + "\n";
         }
-        return str;
+        return str.trim();
     }
 
     public String getParents() {
         String str = "";
         for(String s : parents){
-            str += s + "/n";
+            str += s + "\n";
         }
-        return str;
+        return str.trim();
     }
 
     public String getSiblings() {
         String str = "";
         for(String s : siblings){
-            str += s + "/n";
+            str += s + "\n";
         }
-        return str;
+        return str.trim();
     }
 
     public String getSpouse() {
         String str = "";
         for(String s : spouse){
-            str += s + "/n";
+            str += s + "\n";
         }
-        return str;
+        return str.trim();
     }
 
     public String getChildren() {
         String str = "";
         for(String s : children){
-            str += s + "/n";
+            str += s + "\n";
         }
-        return str;
+        return str.trim();
     }
 
     public boolean getFavourite() { return favourite; }
