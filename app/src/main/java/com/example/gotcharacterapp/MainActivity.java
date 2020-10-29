@@ -2,12 +2,15 @@ package com.example.gotcharacterapp;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.opengl.Visibility;
@@ -50,6 +53,9 @@ import static android.graphics.Color.DKGRAY;
 import static android.graphics.Color.YELLOW;
 
 public class MainActivity extends AppCompatActivity {
+
+
+
     List<String> generalList = new ArrayList<>();
     Toolbar mTopToolbar;
     private List<CharacterItem> characterList = new ArrayList<>();
@@ -60,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private  MyDbHandler myDbHandler;
     int click=0;
     private List<CharacterItem> fav_list;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { 
@@ -296,6 +303,23 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this,characterList);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == 0){
+            assert data != null;
+            CharacterItem characterItem = (CharacterItem) data.getSerializableExtra("character Item");
+            int index = (int) data.getIntExtra("index",-1);
+            if(index != -1) {
+                characterList.set(index, characterItem);
+                myDbHandler.updateFavouriteState(characterItem, index);
+                recyclerViewAdapter.notifyItemChanged(index);
+            }
+        }else{
+            Log.d("MainActivity","Bad intent");
+        }
     }
 
     @Override
