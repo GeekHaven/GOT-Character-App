@@ -1,5 +1,6 @@
 package adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -98,12 +99,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     holder.heartIcon.setImageResource(R.drawable.ic_baseline_favorite_border_24);
                     filteredList.get(position).setFavourite(false);
                     myDbHandler.updateFavouriteState(filteredList.get(position),position);
-                    Toast.makeText(context,"unFavourite",Toast.LENGTH_SHORT).show();
                 }else{
                     holder.heartIcon.setImageResource(R.drawable.ic_baseline_favorite_24);
                     filteredList.get(position).setFavourite(true);
                     myDbHandler.updateFavouriteState(filteredList.get(position),position);
-                    Toast.makeText(context,"Favourite",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -190,11 +189,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Override
         public void onClick(View view) {
             int pos = getAdapterPosition();
+            Context context = view.getContext();
             if(pos != RecyclerView.NO_POSITION) {
                 CharacterItem ob = filteredList.get(pos);
-                Intent i = new Intent(view.getContext(), DisplayCharacterItem.class);
+                Intent i = new Intent(context, DisplayCharacterItem.class);
                 i.putExtra("Character Items", (Serializable) ob);
-                view.getContext().startActivity(i);
+                i.putExtra("pos",pos);
+                ((Activity)context).startActivityForResult(i,0);
             }
         }
     }
